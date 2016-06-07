@@ -32,6 +32,16 @@ class Block implements IBody{
         return y;
     }
 
+    @Override
+    public float getW() {
+        return w;
+    }
+
+    @Override
+    public float getH() {
+        return h;
+    }
+
     public void setY(float y) {
         this.y = y;
     }
