@@ -7,7 +7,6 @@ public class Main {
 
         counter.count(0, 10);
         counter.count(20, 30);
-        counter.count(50, 60);
 
     }
 }
