@@ -29,5 +29,7 @@ public class Main extends Application {
 
         primaryStage.setScene(gameScene);
         primaryStage.show();
+
+        new Block(50, 50, 80, 50).draw();
     }
 }
