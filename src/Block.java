@@ -16,7 +16,6 @@ class Block implements IBody{
 
     @Override
     public boolean isIntersected(IBody body) {
-        if (x <)
         return false;
     }
 
