@@ -3,6 +3,8 @@
  */
 public class Counter {
     public void count(int start, int end){
-
+        for (int i = start; i < end; i++){
+            System.out.println("Counter counts " + i);
+        }
     }
 }
