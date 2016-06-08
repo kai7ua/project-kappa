@@ -2,6 +2,13 @@ public class Player implements IBody {
 
     private float x, y;
     private float w, h;
+    private float vx, vy;
+    private final float HS = 10;
+    private final float G = 1;
+    public boolean isRunning;
+    public boolean isJumping;
+    public boolean isFalling;
+
 
     public Player(float x, float y, float w, float h) {
         this.x = x;

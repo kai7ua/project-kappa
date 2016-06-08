@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b7fcf35e-0461-499c-afc6-69d194eb4f28" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Block.java" afterPath="$PROJECT_DIR$/src/Block.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Player.java" afterPath="$PROJECT_DIR$/src/Player.java" />
     </list>
     <ignored path="project-kappa.iws" />
@@ -44,35 +42,32 @@
         <entry file="file://$PROJECT_DIR$/src/IBody.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+              <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="51" column="16" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.44596913">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding>
-                <element signature="e#269#270#0" expanded="true" />
-                <element signature="e#320#321#0" expanded="true" />
+                <element signature="e#450#451#0" expanded="true" />
+                <element signature="e#501#502#0" expanded="true" />
                 <element signature="method#isIntersected#0;class#Player#0" expanded="false" />
-                <element signature="e#806#807#0" expanded="true" />
-                <element signature="e#832#833#0" expanded="true" />
-                <element signature="e#865#866#0" expanded="true" />
-                <element signature="e#891#892#0" expanded="true" />
+                <element signature="method#setPosition#0;class#Player#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Block.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Block.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Block.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="29" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
+              <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
               <folding>
                 <element signature="method#isIntersected#0;class#Block#0" expanded="false" />
                 <element signature="method#setPosition#0;class#Block#0" expanded="false" />
@@ -106,8 +101,8 @@
         <option value="$PROJECT_DIR$/src/Counter.java" />
         <option value="$PROJECT_DIR$/src/IBody.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/Player.java" />
         <option value="$PROJECT_DIR$/src/Block.java" />
+        <option value="$PROJECT_DIR$/src/Player.java" />
       </list>
     </option>
   </component>
@@ -515,7 +510,13 @@
       <option name="project" value="LOCAL" />
       <updated>1465367042809</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="1">
+      <created>1465367339135</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1465367339135</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -589,13 +590,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
           <folding>
-            <element signature="e#269#270#0" expanded="true" />
-            <element signature="e#320#321#0" expanded="true" />
+            <element signature="e#450#451#0" expanded="true" />
+            <element signature="e#501#502#0" expanded="true" />
             <element signature="method#isIntersected#0;class#Player#0" expanded="false" />
-            <element signature="e#806#807#0" expanded="true" />
-            <element signature="e#832#833#0" expanded="true" />
-            <element signature="e#865#866#0" expanded="true" />
-            <element signature="e#891#892#0" expanded="true" />
+            <element signature="method#setPosition#0;class#Player#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -621,10 +619,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Block.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <folding>
+            <element signature="method#isIntersected#0;class#Block#0" expanded="false" />
+            <element signature="method#setPosition#0;class#Block#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/IBody.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -641,27 +650,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="16" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.44596913">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding>
-            <element signature="e#269#270#0" expanded="true" />
-            <element signature="e#320#321#0" expanded="true" />
+            <element signature="e#450#451#0" expanded="true" />
+            <element signature="e#501#502#0" expanded="true" />
             <element signature="method#isIntersected#0;class#Player#0" expanded="false" />
-            <element signature="e#806#807#0" expanded="true" />
-            <element signature="e#832#833#0" expanded="true" />
-            <element signature="e#865#866#0" expanded="true" />
-            <element signature="e#891#892#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Block.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="29" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
-          <folding>
-            <element signature="method#isIntersected#0;class#Block#0" expanded="false" />
-            <element signature="method#setPosition#0;class#Block#0" expanded="false" />
+            <element signature="method#setPosition#0;class#Player#0" expanded="false" />
           </folding>
         </state>
       </provider>
