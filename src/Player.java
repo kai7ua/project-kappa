@@ -1,8 +1,8 @@
-public class Player implements IBody {
+public class Player implements IBody,Updateable {
 
     private float x, y;
     private float w, h;
-    private float vx, vy;
+    private float xs, ys;
     private final float HS = 10;
     private final float G = 1;
     public boolean isRunning;
@@ -15,6 +15,7 @@ public class Player implements IBody {
         this.y = y;
         this.w = w;
         this.h = h;
+        Main.objectPool.add(this);
     }
 
     @Override
@@ -58,5 +59,18 @@ public class Player implements IBody {
     public void setPosition(float x, float y){
         setX(x);
         setY(y);
+    }
+
+    public void setSpeed(float _xs, float _ys){
+        xs = _xs;
+        ys = _ys;
+    }
+
+    @Override
+    public void Update() {
+        x += xs;
+        y += ys;
+
+        draw();
     }
 }

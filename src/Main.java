@@ -5,9 +5,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main extends Application {
     public static final float WINDOW_WIDTH = 640, WINDOW_HEIGHT = 480;
     public static GraphicsContext graphics;
+
+    public static List<IBody> objectPool = new ArrayList<>();
+    public static boolean isRunning = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -30,7 +36,13 @@ public class Main extends Application {
         primaryStage.setScene(gameScene);
         primaryStage.show();
 
-        new Block(50, 50, 80, 50).draw();
-        new Player(120, 120, 80, 100).draw();
+        isRunning = true;
+        GraphicThread graphicThread = new GraphicThread();
+        Player player = new Player(0,0,50,50);
+        player.setSpeed(1f, 1f);
+    }
+
+    public void stop(){
+        isRunning = false;
     }
 }
