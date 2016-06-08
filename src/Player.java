@@ -17,26 +17,26 @@ public class Player implements IBody {
 
     @Override
     public boolean isIntersected(IBody body) {
-        return false;
+        return body.getX() < x + w && body.getY() < y + h && body.getX() + body.getW() > x && body.getY() + body.getH() > y;
     }
 
     @Override
     public float getX() {
-        return 0;
+        return x;
     }
 
     @Override
     public float getY() {
-        return 0;
+        return y;
     }
 
     @Override
     public float getW() {
-        return 0;
+        return w;
     }
 
     @Override
     public float getH() {
-        return 0;
+        return h;
     }
 }

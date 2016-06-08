@@ -16,7 +16,7 @@ class Block implements IBody{
 
     @Override
     public boolean isIntersected(IBody body) {
-        return false;
+        return body.getX() < x + w && body.getY() < y + h && body.getX() + body.getW() > x && body.getY() + body.getH() > y;
     }
 
     public float getX() {
