@@ -1,4 +1,4 @@
-public class Player implements IBody,Updateable {
+public class Player implements IBody,Updateable,Controlable {
 
     private float x, y;
     private float w, h;
@@ -68,9 +68,37 @@ public class Player implements IBody,Updateable {
 
     @Override
     public void Update() {
+        for(IBody obj: Main.objectPool){
+            if (obj == this)
+                continue;
+
+            if (isIntersected(obj)){
+                ys = -15;
+            }
+        }
+
         x += xs;
         y += ys;
+        ys += Main.G;
+    }
 
-        draw();
+    @Override
+    public void RightButtonPressed() {
+        xs = 2;
+    }
+
+    @Override
+    public void LeftButtonPressed() {
+        xs = -2;
+    }
+
+    @Override
+    public void LeftButtonReleased() {
+        xs = 0;
+    }
+
+    @Override
+    public void RightButtonReleased() {
+        xs = 0;
     }
 }

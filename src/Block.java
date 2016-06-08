@@ -8,6 +8,8 @@ class Block implements IBody{
         this.y = y;
         this.w = w;
         this.h = h;
+        Main.objectPool.add(this);
+
     }
 
     @Override

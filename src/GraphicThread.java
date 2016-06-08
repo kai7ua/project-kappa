@@ -20,6 +20,7 @@ class GraphicThread extends Thread{
                 if (obj instanceof Updateable) {
                     ((Updateable) obj).Update();
                 }
+                obj.draw();
             }
 
             try {
