@@ -31,5 +31,6 @@ public class Main extends Application {
         primaryStage.show();
 
         new Block(50, 50, 80, 50).draw();
+        new Player(120, 120, 80, 100).draw();
     }
 }

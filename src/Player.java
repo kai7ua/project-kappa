@@ -39,4 +39,17 @@ public class Player implements IBody {
     public float getH() {
         return h;
     }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public void setPosition(float x, float y){
+        setX(x);
+        setY(y);
+    }
 }

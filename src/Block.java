@@ -1,6 +1,7 @@
 class Block implements IBody{
     private float x,y;
     private float w,h;
+    private boolean isSolid;
 
     Block(float x, float y, float w, float h) {
         this.x = x;
