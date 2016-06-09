@@ -16,10 +16,9 @@ class GraphicThread extends Thread{
             graphics.setFill(Color.WHITE);
             graphics.fillRect(0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
             graphics.setFill(Color.BLUE);
+
+
             for (IBody obj : Main.objectPool) {
-                if (obj instanceof Updateable) {
-                    ((Updateable) obj).Update();
-                }
                 obj.draw();
             }
 

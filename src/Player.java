@@ -21,8 +21,8 @@ public class Player implements IBody,Updateable,Controlable {
     }
 
     public Player(Player player){
-        this.x = player.getX();
-        this.y = player.getY();
+        this.x = player.getX() + xs;
+        this.y = player.getY() + ys;
         this.w = player.getW();
         this.h = player.getH();
         this.dir = player.getDir();
@@ -107,7 +107,7 @@ public class Player implements IBody,Updateable,Controlable {
                 continue;
 
             if(getNextPosPlayer().getIntersectionDir(obj) == Direction.DOWN){
-                setSpeed(xs, obj.getY() - y - h);
+                setSpeed(xs, 0);
             }
 
             if(getNextPosPlayer().getIntersectionDir(obj) == Direction.UP){
@@ -115,11 +115,11 @@ public class Player implements IBody,Updateable,Controlable {
             }
 
             if(getNextPosPlayer().getIntersectionDir(obj) == Direction.RIGHT){
-                setSpeed(obj.getX() - x - w, ys);
+                setSpeed(0, ys);
             }
 
             if(getNextPosPlayer().getIntersectionDir(obj) == Direction.LEFT){
-                setSpeed(obj.getX() + obj.getW() - x, ys);
+                setSpeed(0, ys);
             }
 
         }
@@ -131,12 +131,12 @@ public class Player implements IBody,Updateable,Controlable {
 
     @Override
     public void RightButtonPressed() {
-        xs = 5;
+        xs = 0.5f;
     }
 
     @Override
     public void LeftButtonPressed() {
-        xs = -5;
+        xs = -0.5f;
     }
 
     @Override
