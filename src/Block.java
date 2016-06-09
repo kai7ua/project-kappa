@@ -3,15 +3,12 @@ class Block implements IBody{
     private float w,h;
     private boolean isSolid;
 
-    Block(float x, float y, float w, float h, boolean isSolid) {
+    Block(float x, float y, float w, float h) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        this.isSolid = isSolid;
-        if (isSolid) {
-            Main.objectPool.add(this);
-        }
+        Main.objectPool.add(this);
     }
 
     @Override
@@ -32,25 +29,6 @@ class Block implements IBody{
         return false;
     }
 
-    @Override
-    public Direction getIntersectionDir(IBody body) {
-
-        if(isIntersected(body)){
-            if(x < body.getX() + body.getW() && x + w > body.getX() + body.getW()){
-                return Direction.LEFT;
-            } else if (x < body.getX() && x + w > body.getX()){
-                return Direction.RIGHT;
-            } else if (y < body.getY() && y + h > body.getY()){
-                return Direction.DOWN;
-            } else if (y < body.getY() + body.getH() && y + h > body.getY() + body.getH()){
-                return Direction.UP;
-            } else {
-                return Direction.NONE;
-            }
-        } else {
-            return Direction.NONE;
-        }
-    }
 
     public float getX() {
         return x;

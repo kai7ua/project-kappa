@@ -1,3 +1,5 @@
+
+
 public class Player implements IBody,Updateable,Controlable {
 
     private float x, y;
@@ -16,6 +18,18 @@ public class Player implements IBody,Updateable,Controlable {
         this.w = w;
         this.h = h;
         Main.objectPool.add(this);
+    }
+
+    public Player(Player player){
+        this.x = player.getX();
+        this.y = player.getY();
+        this.w = player.getW();
+        this.h = player.getH();
+        this.dir = player.getDir();
+        this.xs = player.getXs();
+        this.ys = player.getYs();
+        this.isJumping = player.isJumping;
+        this.isFalling = player.isFalling;
     }
 
     @Override
@@ -92,24 +106,23 @@ public class Player implements IBody,Updateable,Controlable {
             if (obj == this)
                 continue;
 
-            if(isFalling && getNextPosPlayer().getIntersectionDir(obj) == Direction.DOWN){
+            if(getNextPosPlayer().getIntersectionDir(obj) == Direction.DOWN){
                 setSpeed(xs, obj.getY() - y - h);
             }
 
-            if(isJumping && getNextPosPlayer().getIntersectionDir(obj) == Direction.UP){
+            if(getNextPosPlayer().getIntersectionDir(obj) == Direction.UP){
                 setSpeed(xs, obj.getY() + obj.getH() - y);
             }
 
-            if(dir.equals(Direction.RIGHT) && getNextPosPlayer().getIntersectionDir(obj) == Direction.RIGHT){
+            if(getNextPosPlayer().getIntersectionDir(obj) == Direction.RIGHT){
                 setSpeed(obj.getX() - x - w, ys);
             }
 
-            if(dir.equals(Direction.LEFT) && getNextPosPlayer().getIntersectionDir(obj) == Direction.LEFT){
+            if(getNextPosPlayer().getIntersectionDir(obj) == Direction.LEFT){
                 setSpeed(obj.getX() + obj.getW() - x, ys);
             }
 
         }
-
 
         x += xs;
         y += ys;
@@ -141,19 +154,19 @@ public class Player implements IBody,Updateable,Controlable {
         ys = -10;
     }
 
-    public Block getNextPosPlayer(){
-        return new Block(x + xs, y + ys, w, h, false);
+    public Player getNextPosPlayer(){
+        return new Player(this);
     }
 
     public Direction getIntersectionDir(IBody body){
         if(isIntersected(body)){
-            if(x < body.getX() + body.getW() && x + w > body.getX() + body.getW()){
-                return Direction.LEFT;
-            } else if (x < body.getX() && x + w > body.getX()){
-                return Direction.RIGHT;
-            } else if (y < body.getY() && y + h > body.getY()){
+            if(y < body.getY() && y + h > body.getY() && isFalling){
                 return Direction.DOWN;
-            } else if (y < body.getY() + body.getH() && y + h > body.getY() + body.getH()){
+            } else if (x < body.getX() && x + w > body.getX() && dir == Direction.RIGHT){
+                return Direction.RIGHT;
+            } else if (x < body.getX() + body.getW() && x + w > body.getX() + body.getW() && dir == Direction.LEFT){
+                return Direction.LEFT;
+            } else if (y < body.getY() + body.getH() && y + h > body.getY() + body.getH() && isJumping){
                 return Direction.UP;
             } else {
                 return Direction.NONE;
@@ -161,6 +174,18 @@ public class Player implements IBody,Updateable,Controlable {
         } else {
             return Direction.NONE;
         }
+    }
+
+    public float getXs() {
+        return xs;
+    }
+
+    public float getYs() {
+        return ys;
+    }
+
+    public Direction getDir() {
+        return dir;
     }
 
 }
