@@ -3,13 +3,15 @@ class Block implements IBody{
     private float w,h;
     private boolean isSolid;
 
-    Block(float x, float y, float w, float h) {
+    Block(float x, float y, float w, float h, boolean isSolid) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        Main.objectPool.add(this);
-
+        this.isSolid = isSolid;
+        if (isSolid) {
+            Main.objectPool.add(this);
+        }
     }
 
     @Override
@@ -19,7 +21,15 @@ class Block implements IBody{
 
     @Override
     public boolean isIntersected(IBody body) {
-        return body.getX() < x + w && body.getY() < y + h && body.getX() + body.getW() > x && body.getY() + body.getH() > y;
+        if(body.getX() == x + w || body.getY() == y + h || body.getX() + body.getW() == x || body.getY() + body.getH() == y){
+            return false;
+        }
+
+        if(body.getX() < x + w && body.getY() < y + h && body.getX() + body.getW() > x && body.getY() + body.getH() > y){
+            return true;
+        }
+
+        return false;
     }
 
     public float getX() {

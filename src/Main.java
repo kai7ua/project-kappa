@@ -29,7 +29,6 @@ public class Main extends Application {
 
         Scene gameScene = new Scene(rootNode, WINDOW_WIDTH, WINDOW_HEIGHT );
 
-
         gameScene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.RIGHT) {
                 for (IBody obj : objectPool) {
@@ -50,6 +49,15 @@ public class Main extends Application {
                     }
                 }
 
+            }
+
+            if (event.getCode() == KeyCode.UP) {
+                for (IBody obj : objectPool) {
+                    if (obj instanceof Controlable) {
+                        Controlable o = (Controlable) obj;
+                        o.JumpButtonPressed();
+                    }
+                }
             }
         });
 
@@ -87,8 +95,11 @@ public class Main extends Application {
 
         isRunning = true;
         GraphicThread graphicThread = new GraphicThread();
-        Player player = new Player(0,0,50,50);
-        Block block = new Block(0,400,400,10);
+        new Player(130,130,50,50);
+        new Block(20,400,400,10, true);
+        new Block(20, 100, 10, 310, true);
+        new Block(420, 100, 10, 310, true);
+        //new Block(20, 100, 400, 10, true);
     }
 
     public void stop(){

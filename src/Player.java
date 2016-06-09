@@ -3,11 +3,11 @@ public class Player implements IBody,Updateable,Controlable {
     private float x, y;
     private float w, h;
     private float xs, ys;
-    private final float HS = 10;
-    private final float G = 1;
+    private Direction dir;
     public boolean isRunning;
     public boolean isJumping;
     public boolean isFalling;
+
 
 
     public Player(float x, float y, float w, float h) {
@@ -25,7 +25,15 @@ public class Player implements IBody,Updateable,Controlable {
 
     @Override
     public boolean isIntersected(IBody body) {
-        return body.getX() < x + w && body.getY() < y + h && body.getX() + body.getW() > x && body.getY() + body.getH() > y;
+        if(body.getX() == x + w || body.getY() == y + h || body.getX() + body.getW() == x || body.getY() + body.getH() == y){
+            return false;
+        }
+
+        if(body.getX() < x + w && body.getY() < y + h && body.getX() + body.getW() > x && body.getY() + body.getH() > y){
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -68,14 +76,40 @@ public class Player implements IBody,Updateable,Controlable {
 
     @Override
     public void Update() {
+
+        isFalling = (ys > 0);
+        isJumping = (ys < 0);
+        isRunning = (xs != 0);
+
+        if(!isRunning){
+            dir = Direction.NONE;
+        } else {
+            dir = xs > 0? Direction.RIGHT: Direction.LEFT;
+        }
+
         for(IBody obj: Main.objectPool){
+
             if (obj == this)
                 continue;
 
-            if (isIntersected(obj)){
-                ys = -15;
+            if(isFalling && new Block(x + xs + w/2, y + ys, 0, h, false).isIntersected(obj)){
+                setSpeed(xs, obj.getY() - y - h);
             }
+
+            if(isJumping && new Block(x + xs + w/2, y + ys, 0, h, false).isIntersected(obj)){
+                setSpeed(xs, obj.getY() + obj.getH() - y);
+            }
+
+            if(dir.equals(Direction.RIGHT) && new Block(x + xs, y + ys + h/2, w, 0, false).isIntersected(obj)){
+                setSpeed(obj.getX() - x - w, ys);
+            }
+
+            if(dir.equals(Direction.LEFT) && new Block(x + xs, y + ys + h/2, w, 0, false).isIntersected(obj)){
+                setSpeed(obj.getX() + obj.getW() - x, ys);
+            }
+
         }
+
 
         x += xs;
         y += ys;
@@ -84,12 +118,12 @@ public class Player implements IBody,Updateable,Controlable {
 
     @Override
     public void RightButtonPressed() {
-        xs = 2;
+        xs = 5;
     }
 
     @Override
     public void LeftButtonPressed() {
-        xs = -2;
+        xs = -5;
     }
 
     @Override
@@ -100,5 +134,14 @@ public class Player implements IBody,Updateable,Controlable {
     @Override
     public void RightButtonReleased() {
         xs = 0;
+    }
+
+    @Override
+    public void JumpButtonPressed() {
+        ys = -10;
+    }
+
+    public Block getNextPosPlayer(){
+        return new Block(x + xs, y + ys, w, h, false);
     }
 }

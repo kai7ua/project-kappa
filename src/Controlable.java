@@ -3,4 +3,5 @@ public interface Controlable {
     public void LeftButtonPressed();
     public void LeftButtonReleased();
     public void RightButtonReleased();
+    public void JumpButtonPressed();
 }
