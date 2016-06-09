@@ -94,13 +94,13 @@ public class Main extends Application {
         primaryStage.show();
 
         isRunning = true;
-        new GraphicThread();
+        new GameLoop();
         new PhysicThread();
         new Player(130,130,50,50);
         new Block(20,400,400,10);
         new Block(20, 100, 10, 310);
         new Block(420, 100, 10, 310);
-        //new Block(20, 100, 400, 10);
+        new Block(20, 100, 400, 10);
     }
 
     public void stop(){

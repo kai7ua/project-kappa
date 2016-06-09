@@ -111,7 +111,7 @@ public class Player implements IBody,Updateable,Controlable {
             }
 
             if(getNextPosPlayer().getIntersectionDir(obj) == Direction.UP){
-                setSpeed(xs, obj.getY() + obj.getH() - y);
+                setSpeed(xs, 0);
             }
 
             if(getNextPosPlayer().getIntersectionDir(obj) == Direction.RIGHT){
@@ -151,7 +151,7 @@ public class Player implements IBody,Updateable,Controlable {
 
     @Override
     public void JumpButtonPressed() {
-        ys = -10;
+        ys = -3;
     }
 
     public Player getNextPosPlayer(){
