@@ -92,19 +92,19 @@ public class Player implements IBody,Updateable,Controlable {
             if (obj == this)
                 continue;
 
-            if(isFalling && new Block(x + xs + w/2, y + ys, 0, h, false).isIntersected(obj)){
+            if(isFalling && getNextPosPlayer().getIntersectionDir(obj) == Direction.DOWN){
                 setSpeed(xs, obj.getY() - y - h);
             }
 
-            if(isJumping && new Block(x + xs + w/2, y + ys, 0, h, false).isIntersected(obj)){
+            if(isJumping && getNextPosPlayer().getIntersectionDir(obj) == Direction.UP){
                 setSpeed(xs, obj.getY() + obj.getH() - y);
             }
 
-            if(dir.equals(Direction.RIGHT) && new Block(x + xs, y + ys + h/2, w, 0, false).isIntersected(obj)){
+            if(dir.equals(Direction.RIGHT) && getNextPosPlayer().getIntersectionDir(obj) == Direction.RIGHT){
                 setSpeed(obj.getX() - x - w, ys);
             }
 
-            if(dir.equals(Direction.LEFT) && new Block(x + xs, y + ys + h/2, w, 0, false).isIntersected(obj)){
+            if(dir.equals(Direction.LEFT) && getNextPosPlayer().getIntersectionDir(obj) == Direction.LEFT){
                 setSpeed(obj.getX() + obj.getW() - x, ys);
             }
 
@@ -144,4 +144,23 @@ public class Player implements IBody,Updateable,Controlable {
     public Block getNextPosPlayer(){
         return new Block(x + xs, y + ys, w, h, false);
     }
+
+    public Direction getIntersectionDir(IBody body){
+        if(isIntersected(body)){
+            if(x < body.getX() + body.getW() && x + w > body.getX() + body.getW()){
+                return Direction.LEFT;
+            } else if (x < body.getX() && x + w > body.getX()){
+                return Direction.RIGHT;
+            } else if (y < body.getY() && y + h > body.getY()){
+                return Direction.DOWN;
+            } else if (y < body.getY() + body.getH() && y + h > body.getY() + body.getH()){
+                return Direction.UP;
+            } else {
+                return Direction.NONE;
+            }
+        } else {
+            return Direction.NONE;
+        }
+    }
+
 }

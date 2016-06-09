@@ -94,12 +94,12 @@ public class Main extends Application {
         primaryStage.show();
 
         isRunning = true;
-        GraphicThread graphicThread = new GraphicThread();
+        new GraphicThread();
         new Player(130,130,50,50);
         new Block(20,400,400,10, true);
         new Block(20, 100, 10, 310, true);
         new Block(420, 100, 10, 310, true);
-        //new Block(20, 100, 400, 10, true);
+        new Block(20, 100, 400, 10, true);
     }
 
     public void stop(){
