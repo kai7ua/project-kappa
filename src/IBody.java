@@ -1,10 +1,10 @@
 
 interface IBody {
-    public void draw();
-    public boolean isIntersected(IBody body);
-    public float getX();
-    public float getY();
-    public float getW();
-    public float getH();
+    void draw();
+    boolean isIntersected(IBody body);
+    float getX();
+    float getY();
+    float getW();
+    float getH();
 
 }
