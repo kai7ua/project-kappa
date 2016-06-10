@@ -1,4 +1,5 @@
-
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class Player implements IBody,Updateable,Controlable {
 
@@ -21,8 +22,8 @@ public class Player implements IBody,Updateable,Controlable {
     }
 
     public Player(Player player){
-        this.x = player.getX() + xs;
-        this.y = player.getY() + ys;
+        this.x = player.getX() + player.xs;
+        this.y = player.getY() + player.ys;
         this.w = player.getW();
         this.h = player.getH();
         this.dir = player.getDir();
@@ -34,7 +35,10 @@ public class Player implements IBody,Updateable,Controlable {
 
     @Override
     public void draw() {
+        Paint prev = Main.graphics.getFill();
+        Main.graphics.setFill(Color.LIGHTSKYBLUE);
         Main.graphics.fillRect(x, y , w, h);
+        Main.graphics.setFill(prev);
     }
 
     @Override
@@ -131,12 +135,12 @@ public class Player implements IBody,Updateable,Controlable {
 
     @Override
     public void RightButtonPressed() {
-        xs = 0.5f;
+        xs = 1f;
     }
 
     @Override
     public void LeftButtonPressed() {
-        xs = -0.5f;
+        xs = -1f;
     }
 
     @Override
@@ -151,7 +155,7 @@ public class Player implements IBody,Updateable,Controlable {
 
     @Override
     public void JumpButtonPressed() {
-        ys = -3;
+        ys = -3f;
     }
 
     public Player getNextPosPlayer(){
@@ -159,6 +163,7 @@ public class Player implements IBody,Updateable,Controlable {
     }
 
     public Direction getIntersectionDir(IBody body){
+
         if(isIntersected(body)){
             if(y < body.getY() && y + h > body.getY() && isFalling){
                 return Direction.DOWN;
@@ -174,6 +179,7 @@ public class Player implements IBody,Updateable,Controlable {
         } else {
             return Direction.NONE;
         }
+
     }
 
     public float getXs() {

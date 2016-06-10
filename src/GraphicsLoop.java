@@ -2,10 +2,10 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class GameLoop extends AnimationTimer {
+public class GraphicsLoop extends AnimationTimer {
     private GraphicsContext graphics = Main.graphics;
 
-    GameLoop() {
+    GraphicsLoop() {
         this.start();
     }
 
@@ -13,8 +13,7 @@ public class GameLoop extends AnimationTimer {
     public void handle(long now) {
         graphics.setFill(Color.WHITE);
         graphics.fillRect(0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
-        graphics.setFill(Color.BLUE);
-
+        graphics.setFill(Color.DARKBLUE);
 
         for (IBody obj : Main.objectPool) {
             obj.draw();

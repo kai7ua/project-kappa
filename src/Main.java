@@ -16,6 +16,7 @@ public class Main extends Application {
 
     static List<IBody> objectPool = new ArrayList<>();
     static boolean isRunning = false;
+    boolean rightPressed = false, leftPressed = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,6 +24,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         primaryStage.setTitle("project-kappa");
 
         Pane rootNode = new Pane();
@@ -37,8 +39,7 @@ public class Main extends Application {
                         o.RightButtonPressed();
                     }
                 }
-
-                return;
+                rightPressed = true;
             }
 
             if (event.getCode() == KeyCode.LEFT) {
@@ -48,7 +49,7 @@ public class Main extends Application {
                         o.LeftButtonPressed();
                     }
                 }
-
+                leftPressed = true;
             }
 
             if (event.getCode() == KeyCode.UP) {
@@ -63,24 +64,27 @@ public class Main extends Application {
 
         gameScene.setOnKeyReleased(event -> {
             if (event.getCode() == KeyCode.RIGHT) {
-                for (IBody obj : objectPool) {
-                    if (obj instanceof Controlable) {
-                        Controlable o = (Controlable) obj;
-                        o.RightButtonReleased();
+                if(!leftPressed) {
+                    for (IBody obj : objectPool) {
+                        if (obj instanceof Controlable) {
+                            Controlable o = (Controlable) obj;
+                            o.RightButtonReleased();
+                        }
                     }
                 }
-
-                return;
+                rightPressed = false;
             }
 
             if (event.getCode() == KeyCode.LEFT) {
-                for (IBody obj : objectPool) {
-                    if (obj instanceof Controlable) {
-                        Controlable o = (Controlable) obj;
-                        o.LeftButtonReleased();
+                if(!rightPressed) {
+                    for (IBody obj : objectPool) {
+                        if (obj instanceof Controlable) {
+                            Controlable o = (Controlable) obj;
+                            o.LeftButtonReleased();
+                        }
                     }
                 }
-
+                leftPressed = false;
             }
         });
 
@@ -94,13 +98,15 @@ public class Main extends Application {
         primaryStage.show();
 
         isRunning = true;
-        new GameLoop();
+
+        new GraphicsLoop();
         new PhysicThread();
+        Block downBlock = new Block(20,400,400,10);
+        Block leftBlock = new Block(20, 100, 10, 310);
+        Block rightBlock = new Block(420, 100, 10, 310);
+        //Block upBlock =new Block(20, 100, 400, 10);
         new Player(130,130,50,50);
-        new Block(20,400,400,10);
-        new Block(20, 100, 10, 310);
-        new Block(420, 100, 10, 310);
-        new Block(20, 100, 400, 10);
+
     }
 
     public void stop(){
