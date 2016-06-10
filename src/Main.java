@@ -9,9 +9,13 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     static final float WINDOW_WIDTH = 640, WINDOW_HEIGHT = 480;
+
     static GraphicsContext graphics;
+
     static float G = 0.03f;
+
     public static Player player = null;
+
     static boolean isRunning = false;
 
     public static void main(String[] args) {

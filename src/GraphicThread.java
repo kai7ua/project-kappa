@@ -17,9 +17,7 @@ class GraphicThread extends AnimationTimer{
         graphics.fillRect(0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
 
 
-        for (Block obj : Block.Blocks) {
-            obj.draw();
-        }
+        Block.Blocks.forEach(Block::draw);
     }
 
 }
