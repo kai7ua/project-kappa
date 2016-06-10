@@ -103,8 +103,8 @@ public class Main extends Application {
         new PhysicThread();
         Block downBlock = new Block(20,400,400,10);
         Block leftBlock = new Block(20, 100, 10, 310);
-        Block rightBlock = new Block(420, 100, 10, 310);
-        //Block upBlock =new Block(20, 100, 400, 10);
+        //Block rightBlock = new Block(420, 100, 10, 310);
+        Block upBlock =new Block(20, 100, 400, 10);
         new Player(130,130,50,50);
 
     }
