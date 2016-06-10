@@ -1,191 +1,135 @@
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 
+class Player extends Block implements Updateable {
+    float sx = 0, sy = 0;
+    boolean isRight = false, isLeft = false;
 
-public class Player implements IBody,Updateable,Controlable {
-
-    private float x, y;
-    private float w, h;
-    private float xs, ys;
-    private Direction dir;
-    public boolean isRunning;
-    public boolean isJumping;
-    public boolean isFalling;
-
-
-
-    public Player(float x, float y, float w, float h) {
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-        Main.objectPool.add(this);
+    Player(float x, float y, float w, float h, Color color) {
+        super(x, y, w, h, color);
     }
 
-    public Player(Player player){
-        this.x = player.getX() + xs;
-        this.y = player.getY() + ys;
-        this.w = player.getW();
-        this.h = player.getH();
-        this.dir = player.getDir();
-        this.xs = player.getXs();
-        this.ys = player.getYs();
-        this.isJumping = player.isJumping;
-        this.isFalling = player.isFalling;
+    void KeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.RIGHT) {
+            sx = 1;
+            isRight = true;
+        }
+
+        if (event.getCode() == KeyCode.LEFT) {
+            sx = -1;
+            isLeft = true;
+        }
+
+        if (event.getCode() == KeyCode.UP) {
+            sy = -3;
+        }
+
+        if (event.getCode() == KeyCode.DOWN) {
+
+        }
+    }
+
+    void KeyReleased(KeyEvent event) {
+        if (event.getCode() == KeyCode.RIGHT) {
+            if (!isLeft) {
+                sx = 0;
+            }
+            isRight = false;
+        }
+
+        if (event.getCode() == KeyCode.LEFT) {
+            if (!isRight) {
+                sx = 0;
+            }
+            isLeft = false;
+        }
+
+        if (event.getCode() == KeyCode.UP) {
+
+        }
+
+        if (event.getCode() == KeyCode.DOWN) {
+
+        }
+    }
+
+    public void Update() {
+        for (Block block : Blocks) {
+            if (block == this)
+                continue;
+
+            Direction dir = getNextStepIntersectionDir(block);
+            if(dir != Direction.NONE)
+                System.out.println(dir);
+
+            if(dir == Direction.DOWN || dir == Direction.UP){
+                sy = 0;
+            }
+
+            if(dir == Direction.RIGHT || dir == Direction.LEFT){
+                sx = 0;
+            }
+        }
+        x += sx;
+        y += sy;
+        sy+=Main.G;
     }
 
     @Override
     public void draw() {
-        Main.graphics.fillRect(x, y , w, h);
+        super.draw();
     }
 
-    @Override
-    public boolean isIntersected(IBody body) {
-        if(body.getX() == x + w || body.getY() == y + h || body.getX() + body.getW() == x || body.getY() + body.getH() == y){
-            return false;
-        }
-
-        if(body.getX() < x + w && body.getY() < y + h && body.getX() + body.getW() > x && body.getY() + body.getH() > y){
-            return true;
-        }
-
-        return false;
+    void setSpeed(float x, float y) {
+        sy = y;
+        sx = x;
     }
 
-    @Override
-    public float getX() {
-        return x;
-    }
-
-    @Override
-    public float getY() {
-        return y;
-    }
-
-    @Override
-    public float getW() {
-        return w;
-    }
-
-    @Override
-    public float getH() {
-        return h;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public void setPosition(float x, float y){
-        setX(x);
-        setY(y);
-    }
-
-    public void setSpeed(float _xs, float _ys){
-        xs = _xs;
-        ys = _ys;
-    }
-
-    @Override
-    public void Update() {
-
-        isFalling = (ys > 0);
-        isJumping = (ys < 0);
-        isRunning = (xs != 0);
-
-        if(!isRunning){
-            dir = Direction.NONE;
-        } else {
-            dir = xs > 0? Direction.RIGHT: Direction.LEFT;
-        }
-
-        for(IBody obj: Main.objectPool){
-
-            if (obj == this)
-                continue;
-
-            if(getNextPosPlayer().getIntersectionDir(obj) == Direction.DOWN){
-                setSpeed(xs, 0);
-            }
-
-            if(getNextPosPlayer().getIntersectionDir(obj) == Direction.UP){
-                setSpeed(xs, obj.getY() + obj.getH() - y);
-            }
-
-            if(getNextPosPlayer().getIntersectionDir(obj) == Direction.RIGHT){
-                setSpeed(0, ys);
-            }
-
-            if(getNextPosPlayer().getIntersectionDir(obj) == Direction.LEFT){
-                setSpeed(0, ys);
-            }
-
-        }
-
-        x += xs;
-        y += ys;
-        ys += Main.G;
-    }
-
-    @Override
-    public void RightButtonPressed() {
-        xs = 0.5f;
-    }
-
-    @Override
-    public void LeftButtonPressed() {
-        xs = -0.5f;
-    }
-
-    @Override
-    public void LeftButtonReleased() {
-        xs = 0;
-    }
-
-    @Override
-    public void RightButtonReleased() {
-        xs = 0;
-    }
-
-    @Override
-    public void JumpButtonPressed() {
-        ys = -10;
-    }
-
-    public Player getNextPosPlayer(){
-        return new Player(this);
-    }
-
-    public Direction getIntersectionDir(IBody body){
-        if(isIntersected(body)){
-            if(y < body.getY() && y + h > body.getY() && isFalling){
-                return Direction.DOWN;
-            } else if (x < body.getX() && x + w > body.getX() && dir == Direction.RIGHT){
-                return Direction.RIGHT;
-            } else if (x < body.getX() + body.getW() && x + w > body.getX() + body.getW() && dir == Direction.LEFT){
+    public Direction getNextStepIntersectionDir(Block block) {
+        float nextX = x + sx;
+        float nextY = y + sy;
+        if (block.isIntersected(nextX, y, w, h)) {
+            if (sx < 0) {
                 return Direction.LEFT;
-            } else if (y < body.getY() + body.getH() && y + h > body.getY() + body.getH() && isJumping){
+            } else {
+                return Direction.RIGHT;
+            }
+        } else if(block.isIntersected(x, nextY, w, h)) {
+            if(sy < 0){
                 return Direction.UP;
             } else {
-                return Direction.NONE;
+                return Direction.DOWN;
             }
-        } else {
-            return Direction.NONE;
+        } else if(block.isIntersected(nextX, nextY, w, h)){
+            float dy = Math.abs(block.y - y) - block.h/2 - h/2;
+            float dx = Math.abs(block.x - x) - block.w/2 - w/2;
+            float tx = dx/sx;
+            float ty = dy/sy;
+            if(tx > ty){
+                if(sx < 0){
+                    return Direction.LEFT;
+                } else {
+                    return Direction.RIGHT;
+                }
+            } else if (ty < tx){
+                if (sy < 0){
+                    return Direction.UP;
+                } else {
+                    return Direction.DOWN;
+                }
+            } else {
+                if (sx <0 && sy < 0){
+                    return Direction.LEFT_UP;
+                } else if ( sx > 0 && sy > 0){
+                    return Direction.RIGHT_DOWN;
+                } else if (sx > 0 && sy < 0){
+                    return Direction.RIGHT_UP;
+                } else {
+                    return Direction.LEFT_DOWN;
+                }
+            }
         }
+        return Direction.NONE;
     }
-
-    public float getXs() {
-        return xs;
-    }
-
-    public float getYs() {
-        return ys;
-    }
-
-    public Direction getDir() {
-        return dir;
-    }
-
 }

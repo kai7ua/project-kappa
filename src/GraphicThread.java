@@ -1,8 +1,9 @@
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.*;
 
 
-class GraphicThread extends Thread{
+class GraphicThread extends AnimationTimer{
     private GraphicsContext graphics = Main.graphics;
 
     GraphicThread(){
@@ -11,22 +12,14 @@ class GraphicThread extends Thread{
     }
 
     @Override
-    public void run(){
-        while (Main.isRunning) {
-            graphics.setFill(Color.WHITE);
-            graphics.fillRect(0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
-            graphics.setFill(Color.BLUE);
+    public void handle(long now) {
+        graphics.setFill(Color.WHITE);
+        graphics.fillRect(0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
 
 
-            for (IBody obj : Main.objectPool) {
-                obj.draw();
-            }
-
-            try {
-                sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        for (Block obj : Block.Blocks) {
+            obj.draw();
         }
     }
+
 }

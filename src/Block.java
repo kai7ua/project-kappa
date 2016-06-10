@@ -1,32 +1,39 @@
-class Block implements IBody{
-    private float x,y;
-    private float w,h;
-    private boolean isSolid;
+import javafx.scene.paint.Color;
 
-    Block(float x, float y, float w, float h) {
+import java.util.ArrayList;
+import java.util.List;
+
+class Block{
+    protected float x,y;
+    protected float w,h;
+    private boolean isSolid;
+    protected Color color;
+
+    public static List<Block> Blocks = new ArrayList<>();
+
+    Block(float x, float y, float w, float h, Color color) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        Main.objectPool.add(this);
+        this.color = color;
+        Blocks.add(this);
     }
 
-    @Override
-    public void draw() {
-        Main.graphics.fillRect(x,y,w,h);
+
+    public boolean isIntersected(Block anotherBlock){
+        return (Math.abs(anotherBlock.y + anotherBlock.h/2 - y - h/2) < (anotherBlock.h / 2 + h / 2))
+                && (Math.abs(anotherBlock.x + anotherBlock.w/2 - x - w/2) < (anotherBlock.w / 2 + w / 2));
     }
 
-    @Override
-    public boolean isIntersected(IBody body) {
-        if(body.getX() == x + w || body.getY() == y + h || body.getX() + body.getW() == x || body.getY() + body.getH() == y){
-            return false;
-        }
+    public boolean isIntersected(float x, float y, float w, float h){
+        return (Math.abs(y + h/2 - this.y - this.h/2) < (h / 2 + this.h / 2))
+                && (Math.abs(x + w/2 - this.x - this.w/2) < (w / 2 + this.w / 2));
+    }
 
-        if(body.getX() < x + w && body.getY() < y + h && body.getX() + body.getW() > x && body.getY() + body.getH() > y){
-            return true;
-        }
-
-        return false;
+    public void draw(){
+        Main.graphics.setFill(color);
+        Main.graphics.fillRect(x, y, w, h);
     }
 
 
@@ -42,12 +49,10 @@ class Block implements IBody{
         return y;
     }
 
-    @Override
     public float getW() {
         return w;
     }
 
-    @Override
     public float getH() {
         return h;
     }

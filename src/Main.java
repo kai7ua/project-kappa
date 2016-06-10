@@ -2,19 +2,16 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
     static final float WINDOW_WIDTH = 640, WINDOW_HEIGHT = 480;
     static GraphicsContext graphics;
     static float G = 0.03f;
-
-    static List<IBody> objectPool = new ArrayList<>();
+    public static Player player = null;
     static boolean isRunning = false;
 
     public static void main(String[] args) {
@@ -29,60 +26,13 @@ public class Main extends Application {
 
         Scene gameScene = new Scene(rootNode, WINDOW_WIDTH, WINDOW_HEIGHT );
 
-        gameScene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.RIGHT) {
-                for (IBody obj : objectPool) {
-                    if (obj instanceof Controlable) {
-                        Controlable o = (Controlable) obj;
-                        o.RightButtonPressed();
-                    }
-                }
 
-                return;
-            }
 
-            if (event.getCode() == KeyCode.LEFT) {
-                for (IBody obj : objectPool) {
-                    if (obj instanceof Controlable) {
-                        Controlable o = (Controlable) obj;
-                        o.LeftButtonPressed();
-                    }
-                }
+        player = new Player(130,130,50,50, Color.BLUE);
 
-            }
+        gameScene.setOnKeyPressed(player::KeyPressed);
 
-            if (event.getCode() == KeyCode.UP) {
-                for (IBody obj : objectPool) {
-                    if (obj instanceof Controlable) {
-                        Controlable o = (Controlable) obj;
-                        o.JumpButtonPressed();
-                    }
-                }
-            }
-        });
-
-        gameScene.setOnKeyReleased(event -> {
-            if (event.getCode() == KeyCode.RIGHT) {
-                for (IBody obj : objectPool) {
-                    if (obj instanceof Controlable) {
-                        Controlable o = (Controlable) obj;
-                        o.RightButtonReleased();
-                    }
-                }
-
-                return;
-            }
-
-            if (event.getCode() == KeyCode.LEFT) {
-                for (IBody obj : objectPool) {
-                    if (obj instanceof Controlable) {
-                        Controlable o = (Controlable) obj;
-                        o.LeftButtonReleased();
-                    }
-                }
-
-            }
-        });
+        gameScene.setOnKeyReleased(player::KeyReleased);
 
         Canvas gameCanvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -96,10 +46,9 @@ public class Main extends Application {
         isRunning = true;
         new GraphicThread();
         new PhysicThread();
-        new Player(130,130,50,50);
-        new Block(20,400,400,10);
-        new Block(20, 100, 10, 310);
-        new Block(420, 100, 10, 310);
+        new Block(20,400,400,10, Color.AZURE);
+        new Block(20, 100, 10, 310, Color.AZURE);
+        new Block(420, 100, 10, 310, Color.AZURE);
         //new Block(20, 100, 400, 10);
     }
 

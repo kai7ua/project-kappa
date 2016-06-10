@@ -7,7 +7,7 @@ class PhysicThread  extends Thread{
     public void run(){
         System.out.printf("q");
         while(Main.isRunning){
-            for (IBody obj : Main.objectPool) {
+            for (Block obj : Block.Blocks) {
                 if (obj instanceof Updateable) {
                     ((Updateable) obj).Update();
                 }
