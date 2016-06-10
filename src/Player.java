@@ -30,6 +30,7 @@ class Player extends Block implements Updateable {
         }
     }
 
+
     void KeyReleased(KeyEvent event) {
         if (event.getCode() == KeyCode.RIGHT) {
             if (!isLeft) {
