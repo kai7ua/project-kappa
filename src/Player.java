@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 class Player extends Block implements Updateable {
     float sx = 0, sy = 0;
     boolean isRight = false, isLeft = false;
+    boolean isTouchingH = false, isTouchingV = false;
 
     Player(float x, float y, float w, float h, Color color) {
         super(x, y, w, h, color);
@@ -56,25 +57,36 @@ class Player extends Block implements Updateable {
     }
 
     public void Update() {
+        isTouchingH = false;
+        isTouchingV = false;
         for (Block block : Blocks) {
             if (block == this)
                 continue;
 
             Direction dir = getNextStepIntersectionDir(block);
-            if(dir != Direction.NONE)
+            if (dir != Direction.NONE)
                 System.out.println(dir);
 
-            if(dir == Direction.DOWN || dir == Direction.UP){
+            if (dir == Direction.DOWN || dir == Direction.UP) {
                 sy = 0;
             }
 
-            if(dir == Direction.RIGHT || dir == Direction.LEFT){
-                sx = 0;
+            if (dir == Direction.RIGHT || dir == Direction.LEFT) {
+                isTouchingH = true;
+            }
+
+            if (dir == Direction.RIGHT_DOWN || dir == Direction.LEFT_DOWN || dir == Direction.RIGHT_UP || dir == Direction.LEFT_UP) {
+                sy = 0;
+                isTouchingH = true;
             }
         }
-        x += sx;
+        if (!isTouchingH) {
+            x += sx;
+        }
+
         y += sy;
-        sy+=Main.G;
+        sy += Main.G;
+
     }
 
     @Override
@@ -96,35 +108,35 @@ class Player extends Block implements Updateable {
             } else {
                 return Direction.RIGHT;
             }
-        } else if(block.isIntersected(x, nextY, w, h)) {
-            if(sy < 0){
+        } else if (block.isIntersected(x, nextY, w, h)) {
+            if (sy < 0) {
                 return Direction.UP;
             } else {
                 return Direction.DOWN;
             }
-        } else if(block.isIntersected(nextX, nextY, w, h)){
-            float dy = Math.abs(block.y - y) - block.h/2 - h/2;
-            float dx = Math.abs(block.x - x) - block.w/2 - w/2;
-            float tx = dx/sx;
-            float ty = dy/sy;
-            if(tx > ty){
-                if(sx < 0){
+        } else if (block.isIntersected(nextX, nextY, w, h)) {
+            float dy = Math.abs(block.y - y) - block.h / 2 - h / 2;
+            float dx = Math.abs(block.x - x) - block.w / 2 - w / 2;
+            float tx = dx / sx;
+            float ty = dy / sy;
+            if (tx > ty) {
+                if (sx < 0) {
                     return Direction.LEFT;
                 } else {
                     return Direction.RIGHT;
                 }
-            } else if (ty < tx){
-                if (sy < 0){
+            } else if (ty < tx) {
+                if (sy < 0) {
                     return Direction.UP;
                 } else {
                     return Direction.DOWN;
                 }
             } else {
-                if (sx <0 && sy < 0){
+                if (sx < 0 && sy < 0) {
                     return Direction.LEFT_UP;
-                } else if ( sx > 0 && sy > 0){
+                } else if (sx > 0 && sy > 0) {
                     return Direction.RIGHT_DOWN;
-                } else if (sx > 0 && sy < 0){
+                } else if (sx > 0 && sy < 0) {
                     return Direction.RIGHT_UP;
                 } else {
                     return Direction.LEFT_DOWN;
